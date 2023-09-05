@@ -1,0 +1,72 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Some simple derivatives - part 1}
+\author{DTD}
+
+\begin{document}
+\maketitle
+
+We will discuss the following derivative:
+
+\begin{equation}
+\frac{\partial \; \textbf{b}^\text{T} \textbf{A} \textbf{x}}{\partial \textbf{x}} = \nabla_{\textbf{x}} \textbf{b}^\text{T} \textbf{A} \textbf{x} = \partial_\textbf{x} \textbf{b}^\text{T} \textbf{A} \textbf{x}
+\end{equation}
+
+\noindent where $\textbf{x}$ is a $(n \times 1)$ vector, $\textbf{A}$ is a $(n \times n)$ matrix and $\textbf{b}^\text{T}$ is a $(1 \times n)$ vector\footnote{In $(n \times m)$, $n$ denotes the number of rows and $m$ denotes the number of columns.}. We assume that neither $\textbf{A}$ nor $\textbf{b}$ depend on $\textbf{x}$. 
+
+The importand thing to note here is the dimenssion of $\partial_\textbf{x}$. We will use the following notation when $\partial_\textbf{x}$ is a column vector:
+
+\begin{equation}
+\partial_\textbf{x} = \begin{pmatrix} \partial_{x_1} \\ \partial_{x_2} \\ .\\ .\\ .\\  \partial_{x_n} \end{pmatrix}
+\end{equation}
+
+\noindent and
+
+\begin{equation}
+\partial^\text{T}_\textbf{x} = \begin{pmatrix} \partial_{x_1} , \partial_{x_2} , . . .,  \partial_{x_n} \end{pmatrix}
+\end{equation}
+
+\noindent when we are dealing with a row vector. As we will see this will have an impact on the final result. Since $\textbf{b}^\text{T} \textbf{A} \textbf{x}$ is a scalar the result of $\partial_\textbf{x} \textbf{b}^\text{T} \textbf{A} \textbf{x}$ will be a $(n \times 1)$ vector where as $\partial^\text{T}_\textbf{x} \textbf{b}^\text{T} \textbf{A} \textbf{x}$ will be a $(1 \times n)$ vector.
+
+Let us start with a simple example where $n = 2$. In such a case $\textbf{b} = \begin{pmatrix} b_1, b_2 \end{pmatrix}$, $\textbf{x} = \begin{pmatrix} x_1, x_2 \end{pmatrix}$ and
+
+\begin{equation}
+\textbf{A} = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}.
+\end{equation}
+
+\noindent For $n=2$ the expression $c = \textbf{b}^\text{T} \textbf{A} \textbf{x}$ is equal to:
+
+\begin{equation}
+c = a_{11} b_1 x_1+a_{21} b_2 x_1+a_{12} b_1 x_2+a_{22} b_2 x_2.
+\end{equation}
+
+\noindent If we take the derivative $\partial_\textbf{x} c$ we obtain
+
+\begin{equation}
+\partial_\textbf{x} c = \begin{pmatrix} a_{11} b_1+a_{21} b_2 \\ a_{12} b_1+a_{22} b_2  \end{pmatrix} = \begin{pmatrix} a_{11}  & a_{21} \\ a_{12} & a_{22}  \end{pmatrix} \begin{pmatrix} b_1 \\ b_2 \end{pmatrix} = \textbf{A}^\text{T} \textbf{b}.
+\label{eq:partialRowResult}
+\end{equation}
+
+\noindent However, if we take the derivative $\partial^\text{T}_\textbf{x} c$ the result is
+
+\begin{equation}
+\partial^\text{T}_\textbf{x} c = \begin{pmatrix} a_{11} b_1+a_{21} b_2 & a_{12} b_1+a_{22} b_2  \end{pmatrix} = \begin{pmatrix} b_1 & b_2 \end{pmatrix} \begin{pmatrix} a_{11}  & a_{12} \\ a_{21} & a_{22}  \end{pmatrix} = \textbf{b}^\text{T} \textbf{A}
+\label{eq:partialTransposeRowResult}
+\end{equation}
+
+\noindent Although the components of $\partial_\textbf{x} c = \textbf{d}$ and $\partial^\text{T}_\textbf{x} c = \textbf{d}^\text{T}$ are equal, that is, $\textbf{d}[1] = \textbf{d}^\text{T}[1]$ and $\textbf{d}[2] = \textbf{d}^\text{T}[2]$ the result is in esence different. The dimensions of $\partial_\textbf{x} c$ and $\partial^\text{T}_\textbf{x} c$ are different. Equations (\ref{eq:partialRowResult}) and (\ref{eq:partialTransposeRowResult}) can be generalized to arbitrary $n$.
+
+\end{document}
